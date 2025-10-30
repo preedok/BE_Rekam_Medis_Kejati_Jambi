@@ -90,13 +90,3 @@ func (s *patientService) GetAll() ([]models.Patient, error) {
 func (s *patientService) GetByID(id string) (*models.Patient, error) {
 	return s.repo.FindByID(id)
 }
-
-func DoctorOnly() fiber.Handler {
-	return func(c *fiber.Ctx) error {
-		role := c.Locals("role")
-		if role != "admin" {
-			return utils.ErrorResponse(c, fiber.StatusForbidden, "Access denied: doctors only")
-		}
-		return c.Next()
-	}
-}

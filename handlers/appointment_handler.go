@@ -98,25 +98,3 @@ func (h *AppointmentHandler) UpdateStatus(c *fiber.Ctx) error {
 
 	return utils.SuccessResponse(c, "Appointment status updated successfully", appointment)
 }
-
-// LoginDoctor godoc
-// @Summary Doctor login
-// @Tags Auth
-// @Accept json
-// @Produce json
-// @Param request body dto.LoginRequest true "Login Request"
-// @Success 200 {object} utils.Response
-// @Router /api/auth/login/doctor [post]
-func (h *AuthHandler) LoginDoctor(c *fiber.Ctx) error {
-	var req dto.LoginRequest
-	if err := c.BodyParser(&req); err != nil {
-		return utils.ErrorResponse(c, fiber.StatusBadRequest, "Invalid request body")
-	}
-
-	result, err := h.doctorService.Login(&req)
-	if err != nil {
-		return utils.ErrorResponse(c, fiber.StatusUnauthorized, err.Error())
-	}
-
-	return utils.SuccessResponse(c, "Login successful", result)
-}

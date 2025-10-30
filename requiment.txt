@@ -1,1 +1,7 @@
 go run cmd/main.go
+
+# Buka dengan editor
+code go.mod
+
+# Atau dengan nano/vim
+nano go.mod

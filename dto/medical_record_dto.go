@@ -10,10 +10,3 @@ type CreateMedicalRecordRequest struct {
 	Prescription  string `json:"prescription" validate:"required"`
 	NextVisit     string `json:"next_visit"`
 }
-
-func ErrorResponse(c *fiber.Ctx, statusCode int, message string) error {
-	return c.Status(statusCode).JSON(Response{
-		Success: false,
-		Message: message,
-	})
-}

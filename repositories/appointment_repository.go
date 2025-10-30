@@ -59,13 +59,3 @@ func (r *appointmentRepository) Update(appointment *models.Appointment) error {
 func (r *appointmentRepository) Delete(id string) error {
 	return r.db.Delete(&models.Appointment{}, "id = ?", id).Error
 }
-
-func DoctorOnly() fiber.Handler {
-	return func(c *fiber.Ctx) error {
-		role := c.Locals("role")
-		if role != "admin" {
-			return utils.ErrorResponse(c, fiber.StatusForbidden, "Access denied: doctors only")
-		}
-		return c.Next()
-	}
-}

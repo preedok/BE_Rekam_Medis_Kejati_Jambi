@@ -37,13 +37,3 @@ func (r *doctorRepository) FindAll() ([]models.Doctor, error) {
 	err := r.db.Find(&doctors).Error
 	return doctors, err
 }
-
-func DoctorOnly() fiber.Handler {
-	return func(c *fiber.Ctx) error {
-		role := c.Locals("role")
-		if role != "admin" {
-			return utils.ErrorResponse(c, fiber.StatusForbidden, "Access denied: doctors only")
-		}
-		return c.Next()
-	}
-}

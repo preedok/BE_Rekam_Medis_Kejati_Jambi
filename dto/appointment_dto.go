@@ -12,10 +12,3 @@ type CreateAppointmentRequest struct {
 type UpdateAppointmentStatusRequest struct {
 	Status string `json:"status" validate:"required,oneof=approved rejected"`
 }
-
-func ErrorResponse(c *fiber.Ctx, statusCode int, message string) error {
-	return c.Status(statusCode).JSON(Response{
-		Success: false,
-		Message: message,
-	})
-}
