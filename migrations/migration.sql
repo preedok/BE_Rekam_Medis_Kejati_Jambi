@@ -62,8 +62,8 @@ CREATE TABLE IF NOT EXISTS medical_records (
 
 -- Insert Default Doctors
 INSERT INTO doctors (id, name, email, password, schedule, available_times) VALUES
-('doctor1', 'dr. Romadhani Nadri', 'romadhani@klinik.com', '$2a$10$YourHashedPasswordHere', '08:00-12:00', ARRAY['08:00', '09:00', '10:00', '11:00']),
-('doctor2', 'dr. Maudina HF Diantoro', 'maudina@klinik.com', '$2a$10$YourHashedPasswordHere', '12:00-16:00', ARRAY['12:00', '13:00', '14:00', '15:00'])
+('1', 'dr. Romadhani Nadri', 'romadhani@klinik.com', 'dokterkejati96', '08:00-12:00', ARRAY['08:00', '09:00', '10:00', '11:00']),
+('2', 'dr. Maudina HF Diantoro', 'maudina@klinik.com', 'dokterkejati96', '12:00-16:00', ARRAY['12:00', '13:00', '14:00', '15:00'])
 ON CONFLICT (id) DO NOTHING;
 
 -- Create Indexes

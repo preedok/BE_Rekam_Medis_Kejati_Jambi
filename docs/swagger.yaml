@@ -1,0 +1,373 @@
+basePath: /
+definitions:
+  dto.CreateAppointmentRequest:
+    properties:
+      complaint:
+        type: string
+      date:
+        type: string
+      doctor_id:
+        type: string
+      patient_id:
+        type: string
+      poli:
+        type: string
+      time:
+        type: string
+    required:
+    - complaint
+    - date
+    - doctor_id
+    - patient_id
+    - poli
+    - time
+    type: object
+  dto.CreateMedicalRecordRequest:
+    properties:
+      anamnesa:
+        type: string
+      appointment_id:
+        type: string
+      diagnosis:
+        type: string
+      next_visit:
+        type: string
+      objective:
+        type: string
+      patient_id:
+        type: string
+      prescription:
+        type: string
+      therapy:
+        type: string
+    required:
+    - anamnesa
+    - appointment_id
+    - diagnosis
+    - objective
+    - patient_id
+    - prescription
+    - therapy
+    type: object
+  dto.LoginRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  dto.RegisterPatientRequest:
+    properties:
+      address:
+        type: string
+      blood_type:
+        type: string
+      date_of_birth:
+        type: string
+      email:
+        type: string
+      gender:
+        type: string
+      name:
+        type: string
+      password:
+        minLength: 6
+        type: string
+      phone:
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  dto.UpdateAppointmentStatusRequest:
+    properties:
+      status:
+        enum:
+        - approved
+        - rejected
+        type: string
+    required:
+    - status
+    type: object
+  utils.Response:
+    properties:
+      data: {}
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+host: localhost:3000
+info:
+  contact: {}
+  description: API for Medical Record Management System
+  title: Medical Record API
+  version: "1.0"
+paths:
+  /api/appointments:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+      security:
+      - BearerAuth: []
+      summary: Get all appointments
+      tags:
+      - Appointments
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Appointment Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateAppointmentRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/utils.Response'
+      security:
+      - BearerAuth: []
+      summary: Create appointment
+      tags:
+      - Appointments
+  /api/appointments/{id}/status:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: Appointment ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Status Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UpdateAppointmentStatusRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+      security:
+      - BearerAuth: []
+      summary: Update appointment status
+      tags:
+      - Appointments
+  /api/appointments/doctor/{doctorId}:
+    get:
+      parameters:
+      - description: Doctor ID
+        in: path
+        name: doctorId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+      security:
+      - BearerAuth: []
+      summary: Get appointments by doctor
+      tags:
+      - Appointments
+  /api/auth/login/doctor:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Login Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+      summary: Doctor login
+      tags:
+      - Auth
+  /api/auth/login/patient:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Login Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+      summary: Patient login
+      tags:
+      - Auth
+  /api/auth/register:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Register Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.RegisterPatientRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/utils.Response'
+      summary: Register new patient
+      tags:
+      - Auth
+  /api/medical-records:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+      security:
+      - BearerAuth: []
+      summary: Get all medical records
+      tags:
+      - Medical Records
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Medical Record Request
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dto.CreateMedicalRecordRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/utils.Response'
+      security:
+      - BearerAuth: []
+      summary: Create medical record
+      tags:
+      - Medical Records
+  /api/medical-records/patient/{patientId}:
+    get:
+      parameters:
+      - description: Patient ID
+        in: path
+        name: patientId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+      security:
+      - BearerAuth: []
+      summary: Get medical records by patient
+      tags:
+      - Medical Records
+  /api/medical-records/report/monthly:
+    get:
+      parameters:
+      - description: Month (YYYY-MM)
+        in: query
+        name: month
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+      security:
+      - BearerAuth: []
+      summary: Get monthly report
+      tags:
+      - Medical Records
+  /api/patients:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+      security:
+      - BearerAuth: []
+      summary: Get all patients
+      tags:
+      - Patients
+  /api/patients/{id}:
+    get:
+      parameters:
+      - description: Patient ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+      security:
+      - BearerAuth: []
+      summary: Get patient by ID
+      tags:
+      - Patients
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

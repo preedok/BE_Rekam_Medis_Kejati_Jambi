@@ -11,6 +11,8 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+
+	_ "medical-record-api/docs"
 )
 
 // @title Medical Record API

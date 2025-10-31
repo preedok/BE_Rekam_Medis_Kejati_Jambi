@@ -1,7 +1,11 @@
+#running
 go run cmd/main.go
 
-# Buka dengan editor
-code go.mod
+#database
+CREATE DATABASE medical_record;
+\l 
+\c medical_record
 
-# Atau dengan nano/vim
-nano go.mod
+#swagger
+http://localhost:3000/swagger/index.html
+
