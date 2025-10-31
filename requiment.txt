@@ -1,11 +1,33 @@
 #running
-go run cmd/main.go
+go run cmd/main.go   atau  air
 
 #database
 CREATE DATABASE medical_record;
 \l 
+#masuk ke table
 \c medical_record
+#cek table
+\dt
+#cek data di table
+SELECT * FROM doctors;
+
 
 #swagger
 http://localhost:3000/swagger/index.html
+
+http://127.0.0.1:3000/swagger/index.html
+
+
+#user pasien
+andi.pratama@example.com
+#password pasien
+andi123
+
+
+#user dokter
+romadhani@klinik.com   dan  maudina@klinik.com
+#password dokter
+dokterkejati96
+
+
 

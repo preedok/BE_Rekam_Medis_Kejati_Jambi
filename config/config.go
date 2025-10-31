@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"strconv"
+	"strings" // ✅ tambahkan
 
 	"github.com/joho/godotenv"
 )
@@ -41,7 +42,7 @@ func LoadConfig() {
 		AppPort:        getEnv("APP_PORT", "3000"),
 		JWTSecret:      getEnv("JWT_SECRET", "your-secret-key"),
 		JWTExpireHours: expireHours,
-		AllowedOrigins: getEnv("ALLOWED_ORIGINS", "*"),
+		AllowedOrigins: strings.ReplaceAll(getEnv("ALLOWED_ORIGINS", "*"), ",", " "), // ✅ fix
 	}
 }
 
